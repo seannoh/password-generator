@@ -16,6 +16,7 @@ generateBtn.addEventListener("click", writePassword);
 
 // Generate password based on a series of prompts to the user
 function generatePassword() {
+  // Prompt for password length and check that it's between 8 and 128 character long
   var passwordLength = window.prompt("How many characters would you like your password to be?");
   if(passwordLength < 8){
     window.alert("Password must be at least 8 characters long!");
@@ -25,6 +26,7 @@ function generatePassword() {
     return;
   }
 
+  // Prompt for whether to include each character type and add those character to a string
   var characters = "";
   if(window.confirm("Click OK to confirm adding lowercase characters.")){
     characters += "abcdefghijklmnopqrstuvwxyz";
@@ -43,6 +45,8 @@ function generatePassword() {
     return;
   }
 
+  // Randomly select passwordLength number of characters from the pool of selected 
+  // characters to generate a password
   var password = "";
   for(var i = 0; i < passwordLength; i++){
     var charIndex = Math.floor(Math.random() * characters.length);
