@@ -26,5 +26,19 @@ function generatePassword() {
     return;
   }
 
+  if(window.confirm("Click OK to confirm adding lowercase characters.")){
+    characters += "abcdefghijklmnopqrstuvwxyz";
+  }
+  if(window.confirm("Click OK to confirm adding uppercase characters.")){
+    characters += "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+  }
+  if(window.confirm("Click OK to confirm adding numeric characters.")){
+    characters += "0123456789";
+  }
+  if(window.confirm("Click OK to confirm adding special characters.")){
+    characters += " !\"#$%&\'()*+,-./:;<=>?@[\\]^_`{|}~";
+  }
+  console.log(characters);
+
 
 }
