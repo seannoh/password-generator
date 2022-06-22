@@ -39,6 +39,16 @@ function generatePassword() {
     characters += " !\"#$%&\'()*+,-./:;<=>?@[\\]^_`{|}~";
   }
   console.log(characters);
+  if(!characters){
+    window.alert("No character types selected! Please select at least one.");
+    return;
+  }
+  
+  var password = "";
+  for(var i = 0; i < passwordLength; i++){
+    var charIndex = Math.floor(Math.random() * characters.length);
+    password += characters[charIndex];
+  }
 
-
+  return password;
 }
