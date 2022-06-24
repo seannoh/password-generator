@@ -17,7 +17,8 @@ generateBtn.addEventListener("click", writePassword);
 // Generate password based on a series of prompts to the user
 function generatePassword() {
   // Prompt for password length and check that it's between 8 and 128 character long
-  var passwordLength = window.prompt("How many characters would you like your password to be? It must be between 8 and 128 characters long.");
+  const passwordLength = window.prompt("How many characters would you like your password to be? It must be between 8 and 128 characters long.");
+  if(passwordLength === null) return;
   if(!passwordLength){
     window.alert("Please put in a number!");
     return;
@@ -30,32 +31,54 @@ function generatePassword() {
     return;
   }
 
-  // Prompt for whether to include each character type and add those character to a string
-  var characters = "";
+  var password = Array(passwordLength);
+  const lowercase = "abcdefghijklmnopqrstuvwxyz";
+  const uppercase = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+  const numeric = "0123456789";
+  const special = "!\"#$%&\'()*+,-./:;<=>?@[\\]^_`{|}~";
+  var charPool = "";
+
+  var startFillIndex = 0;
+
+  // Prompt for each type of character to be included and note whether it is or not
+  // for each type of character included n, the first n elements in the password are randomly selected from respective pools
   if(window.confirm("Click OK to confirm adding lowercase characters.")){
-    characters += "abcdefghijklmnopqrstuvwxyz";
+    password[startFillIndex++] = selectRandom(lowercase);
+    charPool += lowercase;
   }
   if(window.confirm("Click OK to confirm adding uppercase characters.")){
-    characters += "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+    password[startFillIndex++] = selectRandom(uppercase);
+    charPool += uppercase;
   }
   if(window.confirm("Click OK to confirm adding numeric characters.")){
-    characters += "0123456789";
+    password[startFillIndex++] = selectRandom(numeric);
+    charPool += numeric;
   }
   if(window.confirm("Click OK to confirm adding special characters.")){
-    characters += " !\"#$%&\'()*+,-./:;<=>?@[\\]^_`{|}~";
-  }
-  if(!characters){
-    window.alert("No character types selected! Please select at least one.");
-    return;
+    password[startFillIndex++] = selectRandom(special);
+    charPool += special;
   }
 
-  // Randomly select passwordLength number of characters from the pool of selected 
-  // characters to generate a password
-  var password = "";
-  for(var i = 0; i < passwordLength; i++){
-    var charIndex = Math.floor(Math.random() * characters.length);
-    password += characters[charIndex];
+  // The remaining characters in the password are filled in from the pool of all selected characters
+  for(var i = startFillIndex; i < passwordLength; i++) {
+    password[i] = selectRandom(charPool);
   }
 
-  return password;
+  shuffleArray(password);
+
+  return password.join("");
+}
+
+// randomly select one element from an array and return it
+function selectRandom(array) {
+  var charIndex = Math.floor(Math.random() * array.length);
+  return array[charIndex];
+}
+
+// randomly shuffle an array
+function shuffleArray(array) {
+  var randomMap = array.map(Math.random);
+  array.sort(function(a,b){
+    return randomMap[a]-randomMap[b];
+  });
 }

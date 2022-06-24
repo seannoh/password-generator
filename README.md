@@ -25,6 +25,7 @@ Click the "Generate Password" button to begin. Follow the series of prompts to i
 
 - https://developer.mozilla.org/en-US/docs/Web/API/Window/prompt
 - https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/random
+- https://bost.ocks.org/mike/shuffle/compare.html
 
 ## License
 
